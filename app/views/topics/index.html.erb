@@ -1,0 +1,13 @@
+<h1>Topics</h1> <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+<% @topics.each do |topic| %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">
+        <%= link_to topic.title, topic %>
+        <% topic.bookmarks.each do |bookmark| %>
+          <h6><%= bookmark.url %><h6>
+        <% end %>
+      </h4>
+    </div>
+  </div>
+<% end %>
