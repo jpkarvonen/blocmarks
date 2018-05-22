@@ -13,7 +13,7 @@ class TopicsController < ApplicationController
 
   def create
     @topic = Topic.new(topic_params)
-    @topic.user = current_users
+    @topic.user = current_user
 
     if @topic.save
       redirect_to @topic, notice: 'The new topic "' + @topic.title + '" successfully was created!'
@@ -39,7 +39,17 @@ class TopicsController < ApplicationController
     end
   end
 
-  private def topic_params
+  def destroy
+    @topic = Topic.find(params[:id])
+
+    if @topic.destroy
+      flash[:notice] = "#{@topic.title} was deleted successfully."
+      redirect_to topics_path
+    end
+  end
+
+  private
+  def topic_params
     params.require(:topic).permit(:title)
   end
 
